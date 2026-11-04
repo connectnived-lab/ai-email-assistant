@@ -36,7 +36,7 @@ def configure_live(page):
     page.wait_for_selector("#mode-badge.live")
 
 
-def run_e2e(root, flow, mock_reply, shot_dir=None):
+def run_e2e(root, flow, mock_reply, shot_dir=None, showcase=None):
     """flow(page, mode) drives the app and asserts. mock_reply(request_body) -> text.
     Returns a summary dict; raises AssertionError on any failure."""
     srv, base = serve(root)
@@ -77,6 +77,10 @@ def run_e2e(root, flow, mock_reply, shot_dir=None):
                     assert no_overflow, f"horizontal scroll at {vname} {mode}"
                     assert not real_errors, f"console errors at {vname} {mode}: {real_errors}"
                     if mode == "demo" and shot_dir:
+                        if showcase:
+                            page.reload()
+                            page.wait_for_load_state("networkidle")
+                            showcase(page)
                         page.screenshot(path=os.path.join(shot_dir, f"screenshot-{vname}.png"), full_page=False)
                     checks.append(f"{vname}/{mode}")
                     ctx.close()

@@ -35,8 +35,14 @@ def flow(page, mode):
     assert "Paste an email" in page.inner_text("#error")
 
 
+def showcase(page):
+    page.click("#sample")
+    page.click("#analyze")
+    page.wait_for_function("() => document.querySelector('#draft').value.length > 0")
+
+
 if __name__ == "__main__":
     os.makedirs(SHOTS, exist_ok=True)
-    summary = run_e2e(ROOT, flow, mock_reply, shot_dir=SHOTS)
+    summary = run_e2e(ROOT, flow, mock_reply, shot_dir=SHOTS, showcase=showcase)
     print(json.dumps(summary))
     print("E2E PASS")
