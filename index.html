@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Email Assistant</title>
+<meta name="description" content="AI Email Assistant: paste an email or a thread and get a summary, who said what, detected questions, meetings, deadlines and attachments, suggested next actions, and an editable draft reply in a chosen tone. Demo mode is offline; live mode uses your own OpenAI-compatible model.">
+<meta property="og:title" content="AI Email Assistant">
+<meta property="og:description" content="AI Email Assistant: paste an email or a thread and get a summary, who said what, detected questions, meetings, deadlines and attachments, suggested next actions, and an editable draft reply in a chosen tone. Demo mode is offline; live mode uses your own OpenAI-compatible model.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <h1>AI Email Assistant</h1>
+    <div class="tagline">Paste a thread, get the gist, next steps and a draft reply.</div>
+  </div>
+  <div class="right">
+    <span id="mode-badge" class="badge">Demo mode</span>
+    <button id="open-settings" class="secondary" type="button">Settings</button>
+  </div>
+</header>
+<main>
+<div class="grid two">
+  <section class="card" aria-labelledby="in-h">
+    <h2 id="in-h">The email or thread</h2>
+    <label for="thread">Paste the email, with any quoted replies below it</label>
+    <textarea id="thread" placeholder="From: Anita Rao&#10;Subject: Re: proposal&#10;Could you confirm the pricing?"></textarea>
+    <div class="grid two" style="gap:12px">
+      <div>
+        <label for="tone">Tone</label>
+        <select id="tone">
+          <option value="friendly">Friendly</option>
+          <option value="formal">Formal</option>
+          <option value="short">Short</option>
+        </select>
+      </div>
+      <div>
+        <label for="name">Your name (for the sign-off)</label>
+        <input id="name" type="text" placeholder="Nived">
+      </div>
+    </div>
+    <div class="actions">
+      <button id="analyze" type="button">Analyse and draft</button>
+      <button id="sample" type="button" class="secondary">Load sample</button>
+    </div>
+    <div id="error" class="error" role="alert" hidden></div>
+  </section>
+  <section class="card" aria-labelledby="out-h">
+    <h2 id="out-h">Summary and next steps</h2>
+    <div id="output" class="output" data-empty="A summary, the people involved and next actions appear here."></div>
+    <label for="draft">Draft reply (edit before you send)</label>
+    <textarea id="draft" style="min-height:200px" placeholder="Your draft reply appears here."></textarea>
+    <div class="actions"><button id="copy" type="button" class="secondary" disabled>Copy draft</button></div>
+    <div id="status" class="muted" role="status" aria-live="polite"></div>
+  </section>
+</div>
+
+</main>
+<footer>Built by Nived NS · MIT licence</footer>
+
+<dialog id="settings-dialog" aria-labelledby="settings-title">
+  <div class="dialog-body">
+    <h2 id="settings-title">Settings</h2>
+    <p class="muted">Demo mode works fully offline. Live mode sends your text to the OpenAI-compatible endpoint you enter here. Your key is stored only in this browser (localStorage), never committed, never sent anywhere else.</p>
+    <label for="settings-mode">Mode</label>
+    <select id="settings-mode">
+      <option value="demo">Demo (offline)</option>
+      <option value="live">Live (your API)</option>
+    </select>
+    <label for="settings-base-url">API base URL</label>
+    <input id="settings-base-url" type="url" placeholder="https://api.example.com/v1" autocomplete="off">
+    <label for="settings-api-key">API key</label>
+    <input id="settings-api-key" type="password" autocomplete="off">
+    <label for="settings-model">Model</label>
+    <input id="settings-model" type="text" placeholder="model-name" autocomplete="off">
+    <div id="settings-error" class="error" role="alert" hidden></div>
+    <div class="actions">
+      <button id="settings-save" type="button">Save settings</button>
+      <button id="settings-clear" type="button" class="secondary">Forget key</button>
+      <button id="close-settings" type="button" class="secondary">Close</button>
+    </div>
+  </div>
+</dialog>
+<script type="module" src="src/app.js"></script>
+</body>
+</html>

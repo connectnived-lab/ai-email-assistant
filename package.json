@@ -1,0 +1,12 @@
+{
+  "name": "ai-email-assistant",
+  "version": "1.0.0",
+  "description": "AI Email Assistant: paste an email or a thread and get a summary, who said what, detected questions, meetings, deadlines and attachments, suggested next actions, and an editable draft reply in a chosen tone. Demo mode is offline; live mode uses your own OpenAI-compatible model.",
+  "type": "module",
+  "private": false,
+  "author": "Nived NS",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  }
+}

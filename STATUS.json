@@ -1,0 +1,14 @@
+{
+  "tests_passed": 67,
+  "e2e_passed": true,
+  "verified": [
+    "node unit tests pass",
+    "playwright e2e passes at 390x844 and 1440x900 in demo and mocked live mode",
+    "no console errors, no horizontal scroll"
+  ],
+  "unverified": [
+    "Drafts in demo mode use placeholders such as [your answer here]; they are not written answers.",
+    "Thread parsing assumes the newest message is at the top, as most mail clients paste it.",
+    "Live mode was tested against a mocked endpoint only."
+  ]
+}
